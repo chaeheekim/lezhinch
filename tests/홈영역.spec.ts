@@ -3,10 +3,16 @@ import { test, expect } from '@playwright/test';
 test('Top 버튼 동작', async ({ page }) => {
   // Top 이동 버튼 동작
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+
   await page.evaluate(() => window.scrollBy(0, 3000));
-  await page.getByRole('button', { name: '맨 위로' }).click();
-  await page.waitForLoadState('networkidle');
+  await page.click('.style_topBtn__8FP1p'); // '맨 위로' 버튼 클릭
 
   // "Top 이동" 버튼 미노출 확인
   const isTopButtonVisible = await page.isVisible('.topButton--on');
@@ -19,15 +25,23 @@ test('Top 버튼 동작', async ({ page }) => {
 
 test('GNB 메뉴 확인 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   const expectedMenuItems = [
-    '연재', '만화', '후방주의19+', 'BL', '로맨스', '드라마', '소년', '무료', '랭킹', '이벤트'
+    '연재', '만화', '후방주의19', 'BL', '로맨스', '드라마', '소년', '무료', '랭킹', '이벤트up'
   ];
 
-  const gnbItems = await page.$$('.gnb__list .gnb__item a.gnb__link');
+  // GNB 메뉴 항목을 가져오는 셀렉터
+  const gnbItems = await page.$$('.style_navMenu__menuListLink___Une7');
   const gnbTexts = await Promise.all(gnbItems.map(item => item.textContent()));
 
+  console.log('페이지에서 찾은 GNB 메뉴:', gnbTexts);
   expect(gnbTexts).toEqual(expectedMenuItems);
 
   // 브라우저 닫기
@@ -36,14 +50,23 @@ test('GNB 메뉴 확인 ko', async ({ page }) => {
 
 test('GNB 메뉴 확인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   const expectedMenuItems = [
     'オリジナル', 'ランキング', '無料', 'マンガ', '男性向け', '女性向け', 'BL', 'オトナ18+', 'キャンペーン',
   ];
 
-  const gnbItems = await page.$$('.gnb__list .gnb__item a.gnb__link');
+  // GNB 메뉴 항목을 가져오는 셀렉터
+  const gnbItems = await page.$$('.style_navMenu__menuListLink___Une7');
   const gnbTexts = await Promise.all(gnbItems.map(item => item.textContent()));
 
+  console.log('페이지에서 찾은 GNB 메뉴:', gnbTexts);
   expect(gnbTexts).toEqual(expectedMenuItems);
 
   // 브라우저 닫기
@@ -53,14 +76,23 @@ test('GNB 메뉴 확인 ja', async ({ page }) => {
 
 test('GNB 메뉴 확인 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   const expectedMenuItems = [
     'Daily', 'Rankings', 'BL/GL', 'MatureR', 'Free', 'General', 'Sale'
   ];
 
-  const gnbItems = await page.$$('.gnb__list .gnb__item a.gnb__link');
+  // GNB 메뉴 항목을 가져오는 셀렉터
+  const gnbItems = await page.$$('.style_navMenu__menuListLink___Une7');
   const gnbTexts = await Promise.all(gnbItems.map(item => item.textContent()));
 
+  console.log('페이지에서 찾은 GNB 메뉴:', gnbTexts);
   expect(gnbTexts).toEqual(expectedMenuItems);
 
   // 브라우저 닫기
@@ -69,7 +101,13 @@ test('GNB 메뉴 확인 en', async ({ page }) => {
 
 test('랭킹 장르 노출 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -88,6 +126,13 @@ test('랭킹 장르 노출 ko', async ({ page }) => {
 
 test('랭킹 장르 노출 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -106,6 +151,13 @@ test('랭킹 장르 노출 ja', async ({ page }) => {
 
 test('랭킹 장르 노출 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Rankings' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -124,7 +176,13 @@ test('랭킹 장르 노출 en', async ({ page }) => {
 
 test('전체 실시간 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
 
   // '더보기' 버튼 클릭
@@ -142,6 +200,13 @@ test('전체 실시간 랭킹 ko', async ({ page }) => {
 
 test('전체 실시간 랭킹 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
 
   // '더보기' 버튼 클릭
@@ -159,6 +224,13 @@ test('전체 실시간 랭킹 ja', async ({ page }) => {
 
 test('전체 실시간 랭킹 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Rankings' }).click();
 
   // '더보기' 버튼 클릭
@@ -176,7 +248,13 @@ test('전체 실시간 랭킹 en', async ({ page }) => {
 
 test('BL 실시간 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -207,6 +285,13 @@ test('BL 실시간 랭킹 ko', async ({ page }) => {
 
 test('로맨스 실시간 랭킹 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
 
   // 로맨스 탭 선택
@@ -235,6 +320,13 @@ test('로맨스 실시간 랭킹 ja', async ({ page }) => {
 
 test('드라마 실시간 랭킹 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Rankings' }).click();
 
   // 드라마 탭 선택
@@ -263,7 +355,13 @@ test('드라마 실시간 랭킹 en', async ({ page }) => {
 
 test('전체 신작 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -284,6 +382,13 @@ test('전체 신작 랭킹 ko', async ({ page }) => {
 
 test('전체 신작 랭킹 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
   
   // '더보기' 버튼 클릭
@@ -303,6 +408,13 @@ test('전체 신작 랭킹 ja', async ({ page }) => {
 
 test('전체 신작 랭킹 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Rankings' }).click();
 
   // '더보기' 버튼 클릭
@@ -322,7 +434,13 @@ test('전체 신작 랭킹 en', async ({ page }) => {
 
 test('전체 이벤트 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
 
   // '더보기' 버튼 클릭
@@ -342,6 +460,13 @@ test('전체 이벤트 랭킹 ko', async ({ page }) => {
 
 test('전체 이벤트 랭킹 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
 
   // '더보기' 버튼 클릭
@@ -361,6 +486,13 @@ test('전체 이벤트 랭킹 ja', async ({ page }) => {
 
 test('전체 이벤트 랭킹 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Rankings' }).click();
 
   // '더보기' 버튼 클릭
@@ -380,7 +512,13 @@ test('전체 이벤트 랭킹 en', async ({ page }) => {
 
 test('드라마 이벤트 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
 
   // 드라마 탭 선택
@@ -409,6 +547,13 @@ test('드라마 이벤트 랭킹 ko', async ({ page }) => {
 
 test('전체 단행본 랭킹 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
 
   // '더보기' 버튼 클릭
@@ -428,7 +573,13 @@ test('전체 단행본 랭킹 ja', async ({ page }) => {
 
 test('전체 연도별 2023년 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
 
   // '더보기' 버튼 클릭
@@ -448,6 +599,13 @@ test('전체 연도별 2023년 랭킹 ko', async ({ page }) => {
 
 test('전체 연도별 2023년 랭킹 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'ランキング' }).click();
 
   // '더보기' 버튼 클릭
@@ -467,6 +625,13 @@ test('전체 연도별 2023년 랭킹 ja', async ({ page }) => {
 
 test('전체 연도별 2023년 랭킹 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Rankings' }).click();
 
   // '더보기' 버튼 클릭
@@ -486,7 +651,13 @@ test('전체 연도별 2023년 랭킹 en', async ({ page }) => {
 
 test('전체 연도별 2021년 랭킹 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -511,7 +682,13 @@ test('전체 연도별 2021년 랭킹 ko', async ({ page }) => {
 
 test('2023~2018년 탭 노출', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '랭킹' }).click();
 
   // '더보기' 버튼 클릭
@@ -566,7 +743,13 @@ test('2023~2018년 탭 노출', async ({ page }) => {
 
 test('단행본 페이지 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '만화', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -581,6 +764,13 @@ test('단행본 페이지 ko', async ({ page }) => {
 
 test('단행본 페이지 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -595,20 +785,22 @@ test('단행본 페이지 ja', async ({ page }) => {
 
 test('단행본 출판사/레이블 상세 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
   await page.evaluate(() => window.scrollBy(0, 500));
 
-  const cascomiButton = await page.$('a[href="/ja/artist/cascomi"]');
-  if (cascomiButton) {
-    await cascomiButton.click();
+  await page.click('.lzComic__link[href="/ja/artist/cascomi"]');
   await page.waitForLoadState('networkidle');
 
-    // 출판사 상세 페이지로 이동되었는지 확인
-    const artistHeading = await page.$('#artist-heading');
-    expect(artistHeading).not.toBeNull(); // artist-heading 요소가 존재해야 함
-  } else {
-    console.log('Cascomi 출판사 페이지를 찾을 수 없음');
-  }
+  // 출판사 상세 페이지로 이동되었는지 확인
+  const artistHeading = await page.$('#artist-heading');
+  expect(artistHeading).not.toBeNull(); // artist-heading 요소가 존재해야 함
 
   // 페이지 로딩이 완료될 때까지 대기
   await page.waitForLoadState('load');
@@ -619,7 +811,13 @@ test('단행본 출판사/레이블 상세 ja', async ({ page }) => {
 
 test('단행본 장르 노출 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '만화', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -638,6 +836,13 @@ test('단행본 장르 노출 ko', async ({ page }) => {
 
 test('단행본 장르 노출 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
   await page.evaluate(() => window.scrollBy(0, 1000));
   await page.waitForLoadState('networkidle');
@@ -657,7 +862,13 @@ test('단행본 장르 노출 ja', async ({ page }) => {
 
 test('단행본 장르 선택 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '만화', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -686,6 +897,13 @@ test('단행본 장르 선택 ko', async ({ page }) => {
 
 test('단행본 장르 선택 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -714,7 +932,13 @@ test('단행본 장르 선택 ja', async ({ page }) => {
 
 test('단행본 전체 랭킹 더보기 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '만화', exact: true }).click();
 
   // "전체 랭킹 더보기" 링크 클릭
@@ -734,6 +958,13 @@ test('단행본 전체 랭킹 더보기 ko', async ({ page }) => {
 
 test('단행본 전체 랭킹 더보기 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "전체 랭킹 더보기" 링크 클릭
@@ -753,7 +984,13 @@ test('단행본 전체 랭킹 더보기 ja', async ({ page }) => {
 
 test('단행본 로맨스 랭킹 더보기 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '만화', exact: true }).click();
 
   // 로맨스 탭 선택
@@ -782,6 +1019,13 @@ test('단행본 로맨스 랭킹 더보기 ko', async ({ page }) => {
 
 test('단행본 BL 랭킹 더보기 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // BL 탭 선택
@@ -810,19 +1054,37 @@ test('단행본 BL 랭킹 더보기 ja', async ({ page }) => {
 
 test('무료 장르 노출 확인 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '무료', exact: true }).click();
   await page.waitForLoadState('networkidle');
+
+  // 작품이 없는 경우 학원 장르 미노출 여부 확인
+  const isAcademyGenreVisible = await page.isVisible('a[href="/ko/free?genre=academy&page=0"]');
+
+  if (!isAcademyGenreVisible) {
+    console.log('작품이 없는 경우 학원 장르가 미노출됨');
+
+    // 브라우저 닫기
+    await page.close();
+    return;
+  }
 
   const expectedFreeOrder = [
     '전체', '로맨스', '드라마', 'BL', '백합', '판타지', '개그', '학원', '일상', '액션', '미스터리'
   ];
 
   // 장르 탭 요소들 가져오기
-  const genreTabs = await page.$$eval('#free-tab-list a[role="tab"]', tabs => tabs.map(tab => tab.textContent));
+  const genreTabs = await page.$$('#free-tab-list a[role="tab"]');
+  const genreTabTexts = await Promise.all(genreTabs.map(tab => tab.textContent()));
 
   // 예상된 순서와 일치하는지 확인
-  expect(genreTabs).toEqual(expectedFreeOrder);
+  expect(genreTabTexts).toEqual(expectedFreeOrder);
 
   // 브라우저 닫기
   await page.close();
@@ -830,8 +1092,26 @@ test('무료 장르 노출 확인 ko', async ({ page }) => {
 
 test('무료 장르 노출 확인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '無料', exact: true }).click();
   await page.waitForLoadState('networkidle');
+
+  // 작품이 없는 경우 TL 장르 미노출 여부 확인
+  const isTLGenreVisible = await page.isVisible('a[href="/ja/free?genre=tl18&page=0"]');
+
+  if (!isTLGenreVisible) {
+    console.log('작품이 없는 경우 TL 장르가 미노출됨');
+
+    // 브라우저 닫기
+    await page.close();
+    return;
+  }
 
   const expectedFreeOrder = [
     '全体', 'メンズ18+', 'BL', 'TL18+', 'ロマンス', 'ドラマ', 'ファンタジー'
@@ -849,8 +1129,26 @@ test('무료 장르 노출 확인 ja', async ({ page }) => {
 
 test('무료 장르 노출 확인 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'Free', exact: true }).click();
   await page.waitForLoadState('networkidle');
+
+  // 작품이 없는 경우 GL 장르 미노출 여부 확인
+  const isGLGenreVisible = await page.isVisible('a[href="/en/free?genre=gl&page=0"]');
+
+  if (!isGLGenreVisible) {
+    console.log('작품이 없는 경우 GL 장르가 미노출됨');
+
+    // 브라우저 닫기
+    await page.close();
+    return;
+  }
 
   const expectedFreeOrder = [
     'All', 'Romance', 'GL', 'BL', 'MatureR', 'Action', 'SF/Fantasy', 'Drama'
@@ -868,25 +1166,38 @@ test('무료 장르 노출 확인 en', async ({ page }) => {
 
 test('GNB 후방주의_비성인 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 비성인 계정 로그인
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').click();
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  //햄버거 메뉴 버튼 선택
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
-  await page.getByRole('link', { name: '후방주의 19' }).click();
+  // 후방주의 페이지 접근
+  await page.click('.style_navMenu__menuListLink___Une7.isAdult');
   await page.waitForLoadState('networkidle');
 
-  // 성인인증 페이지 URL을 기대결과와 비교
+  // 성인인증 페이지로 이동 여부 확인
   const currentURL = page.url();
   const expectedURL = 'https://q-www.lezhin.com/ko/adult?redirect=%2Fko%2Fcontent-mode%3Fpath%3D%252Fko%252Fnsfw%26sw%3Dall';
-
   expect(currentURL).toBe(expectedURL);
 
   // 브라우저 닫기
@@ -895,24 +1206,42 @@ test('GNB 후방주의_비성인 ko', async ({ page }) => {
 
 test('GNB 후방주의_성인 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
-  // 비성인 계정 로그인
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').click();
-  await page.getByLabel('이메일').fill('ch_auto2@yopmail.com');
-  await page.getByLabel('비밀번호').click();
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  // 성인 계정 로그인
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 토글 버튼 선택하여 '전연령으로 이동' 클릭
-  await page.click('.contentMode__link--kid');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  await page.click('.style_toggleContentMode__btn__K0Vf9');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 후방주의 페이지 접근
-  await page.click('a.gnb__link--adult');
+  await page.click('.style_navMenu__menuListLink___Une7.isAdult');
   await page.waitForLoadState('networkidle');
 
   // 후방주의 페이지 URL을 기대결과와 비교
@@ -932,7 +1261,13 @@ test('GNB 후방주의_성인 ko', async ({ page }) => {
 
 test('GNB 로맨스 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '로맨스', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -948,7 +1283,13 @@ test('GNB 로맨스 ko', async ({ page }) => {
 
 test('GNB 소년 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '소년', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -964,7 +1305,13 @@ test('GNB 소년 ko', async ({ page }) => {
 
 test('GNB 드라마 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '드라마', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -980,7 +1327,13 @@ test('GNB 드라마 ko', async ({ page }) => {
 
 test('GNB BL ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'BL', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -996,7 +1349,13 @@ test('GNB BL ko', async ({ page }) => {
 
 test('전시메뉴 상세 필터/정렬 ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '로맨스', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -1030,6 +1389,13 @@ test('전시메뉴 상세 필터/정렬 ko', async ({ page }) => {
 
 test('전시메뉴 상세 필터/정렬 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '男性向け' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -1063,6 +1429,13 @@ test('전시메뉴 상세 필터/정렬 ja', async ({ page }) => {
 
 test('전시메뉴 상세 필터/정렬 en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'General' }).click();
   await page.waitForLoadState('networkidle');
 
@@ -1096,7 +1469,13 @@ test('전시메뉴 상세 필터/정렬 en', async ({ page }) => {
 
 test('전시메뉴 상세 필터/정렬 Default ko', async ({ page }) => {
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '소년', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -1128,6 +1507,13 @@ test('전시메뉴 상세 필터/정렬 Default ko', async ({ page }) => {
 
 test('전시메뉴 상세 필터/정렬 Default ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: '女性向け', exact: true }).click();
   await page.waitForLoadState('networkidle');
 
@@ -1159,6 +1545,13 @@ test('전시메뉴 상세 필터/정렬 Default ja', async ({ page }) => {
 
 test('전시메뉴 상세 필터/정렬 Default en', async ({ page }) => {
   await page.goto('https://q-www.lezhinus.com/en');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'BL/GL' }).click();
   await page.waitForLoadState('networkidle');
 

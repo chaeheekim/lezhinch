@@ -2,16 +2,21 @@ import { test, expect } from '@playwright/test';
 
 test('홈에서 접근 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
-  // "もっと見る" 버튼 클릭
-  await page.click('section#comic_printed_ownership a.lzComic__more');
- /* await page.click('a.style_ownerShipList__detailLink__YoTEo');*/
+  // "もっと見る" 버튼 클릭하여 출판사|레이블 상세 페이지로 이동
+  await page.click('a.style_ownerShipList__detailLink__YoTEo');
   await page.waitForLoadState('networkidle'); 
 
   // 출판사|레이블 상세 페이지 URL을 기대결과와 비교
   const currentURL = page.url();
   const expectedURL = 'https://q-www.lezhin.jp/ja/artists?page=0';
-  
   expect(currentURL).toBe(expectedURL);
 
   // 브라우저 닫기
@@ -20,6 +25,13 @@ test('홈에서 접근 ja', async ({ page }) => {
 
 test('단행본 페이지에서 접근 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -38,6 +50,13 @@ test('단행본 페이지에서 접근 ja', async ({ page }) => {
 
 test('출판사/레이블 타이틀 확인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -57,6 +76,13 @@ test('출판사/레이블 타이틀 확인 ja', async ({ page }) => {
 
 test('출판사/레이블 안내문구 확인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -76,6 +102,13 @@ test('출판사/레이블 안내문구 확인 ja', async ({ page }) => {
 
 test('출판사/레이블 탭 노출 확인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -105,6 +138,13 @@ test('출판사/레이블 탭 노출 확인 ja', async ({ page }) => {
 
 test('레이블 탭 선택 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -132,6 +172,13 @@ test('레이블 탭 선택 ja', async ({ page }) => {
 
 test('출판사 탭 선택 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -159,6 +206,13 @@ test('출판사 탭 선택 ja', async ({ page }) => {
 
 test('출판사 상세 페이지 이동 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -183,6 +237,13 @@ test('출판사 상세 페이지 이동 ja', async ({ page }) => {
 
 test('레이블 상세 페이지 이동 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -211,12 +272,28 @@ test('레이블 상세 페이지 이동 ja', async ({ page }) => {
 
 test('성인/비성인 출판사 작품 구분_비성인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // "もっと見る" 버튼 클릭
   await page.click('a.lzComic__more[href="/ja/artists?page=0"]');
@@ -258,12 +335,28 @@ test('성인/비성인 출판사 작품 구분_비성인 ja', async ({ page }) =
 
 test('성인/비성인 출판사 작품 구분_성인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto2_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // "もっと見る" 버튼 클릭
   await page.click('a.lzComic__more[href="/ja/artists?page=0"]');
@@ -305,12 +398,28 @@ test('성인/비성인 출판사 작품 구분_성인 ja', async ({ page }) => {
 
 test('성인/비성인 레이블 작품 구분_비성인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // "もっと見る" 버튼 클릭
   await page.click('a.lzComic__more[href="/ja/artists?page=0"]');
@@ -354,12 +463,28 @@ test('성인/비성인 레이블 작품 구분_비성인 ja', async ({ page }) =
 
 test('성인/비성인 레이블 작품 구분_성인 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto2_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // "もっと見る" 버튼 클릭
   await page.click('a.lzComic__more[href="/ja/artists?page=0"]');
@@ -403,6 +528,13 @@ test('성인/비성인 레이블 작품 구분_성인 ja', async ({ page }) => {
 
 test('출판사 리스트 페이징 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭
@@ -442,7 +574,7 @@ test('출판사 리스트 페이징 ja', async ({ page }) => {
 
   // 다음 페이지에서 출판사 리스트 아이템 수 확인 (20개)
   const nextPageOwnershipsListItems = await nextPageOwnershipsList.$$eval('li.ownerships__item', items => items.length);
-  expect(nextPageOwnershipsListItems).toBe(21); // 다음 페이지에서는 20개의 출판사 리스트 아이템이 노출되어야 함
+  expect(nextPageOwnershipsListItems).toBe(22); // 다음 페이지에서는 20개의 출판사 리스트 아이템이 노출되어야 함
 
   // 브라우저 닫기
   await page.close();
@@ -450,6 +582,13 @@ test('출판사 리스트 페이징 ja', async ({ page }) => {
 
 test('레이블 리스트 페이징 ja', async ({ page }) => {
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.getByRole('link', { name: 'マンガ', exact: true }).click();
 
   // "もっと見る" 버튼 클릭

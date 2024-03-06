@@ -3,17 +3,33 @@ import { test, expect } from '@playwright/test';
 test('에피소드 목록 단권구매 팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -72,16 +88,33 @@ test('에피소드 목록 단권구매 팝업 UI 확인 ko', async ({ page }) =>
 test('에피소드 목록 단권구매 팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'DEAR DOOR');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'DEAR DOOR');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -135,20 +168,38 @@ test('에피소드 목록 단권구매 팝업 UI 확인 ja', async ({ page }) =>
 test('에피소드 목록 단권구매 팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Behind Story');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Behind Story');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
+
   
   // 특정 유료 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 3000));
@@ -198,22 +249,37 @@ test('에피소드 목록 단권구매 팝업 UI 확인 en', async ({ page }) =>
 test('에피소드 목록 단권구매 팝업 UI 확인_성인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto2@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '커튼콜 아래그랑');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '커튼콜 아래그랑');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
   
   // 특정 유료 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 2000));
@@ -268,16 +334,33 @@ test('에피소드 목록 단권구매 팝업 UI 확인_성인 ko', async ({ pag
 test('에피소드 목록 단권구매 팝업 UI 확인_성인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto2_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
     // 작품 검색
-    await page.click('#search-btn');
-    await page.type('.search__input', 'DEAR DOOR');
-    await page.click('.search__btnGo');
+    await page.click('.style_supportsItem__search__ZPNGK');
+    await page.type('.style_gnbSearch__input__KGtkv', 'DEAR DOOR【完全版】');
+    await page.waitForTimeout(1000);
+    await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
     await page.waitForSelector('.lzComic__item');
     const link = await page.waitForSelector('.lzComic__link');
     await link.click();
@@ -330,16 +413,33 @@ test('에피소드 목록 단권구매 팝업 UI 확인_성인 ja', async ({ pag
 test('에피소드 목록 단권구매 팝업 UI 확인_성인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto2_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'An Innocent Sin');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'An Innocent Sin');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -392,30 +492,42 @@ test('에피소드 목록 단권구매 팝업 UI 확인_성인 en', async ({ pag
 test('에피소드 목록 전체구매 팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 전체구매 버튼 클릭
   await page.evaluate(() => window.scrollBy(0, 500));
-  await page.evaluate(() => {
-    const bulkPurchaseButton = document.querySelector('button#btn-bulk-purchase');
-    if (bulkPurchaseButton) {
-      bulkPurchaseButton.dispatchEvent(new MouseEvent('click'));
-    }
-  });
+  await page.waitForTimeout(2000);
+  await page.click('button#btn-bulk-purchase');
 
   // 작품 구매 팝업 노출 대기
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -468,28 +580,42 @@ test('에피소드 목록 전체구매 팝업 UI 확인 ko', async ({ page }) =>
 test('에피소드 목록 전체구매 팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'DEAR DOOR');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'DEAR DOOR');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
       
   // 전체구매 버튼 클릭
-  await page.evaluate(() => {
-    const bulkPurchaseButton = document.querySelector('button#btn-bulk-purchase');
-    if (bulkPurchaseButton) {
-      bulkPurchaseButton.dispatchEvent(new MouseEvent('click'));
-    }
-  });
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
+  await page.click('button#btn-bulk-purchase');
 
   // 작품 구매 팝업 노출 대기
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -542,28 +668,42 @@ test('에피소드 목록 전체구매 팝업 UI 확인 ja', async ({ page }) =>
 test('에피소드 목록 전체구매 팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Behind Story');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Behind Story');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 전체구매 버튼 클릭
-  await page.evaluate(() => {
-    const bulkPurchaseButton = document.querySelector('button#btn-bulk-purchase');
-    if (bulkPurchaseButton) {
-      bulkPurchaseButton.dispatchEvent(new MouseEvent('click'));
-    }
-  });
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
+  await page.click('button#btn-bulk-purchase');
 
   // 작품 구매 팝업 노출 대기
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -616,30 +756,42 @@ test('에피소드 목록 전체구매 팝업 UI 확인 en', async ({ page }) =>
 test('에피소드 목록 전체구매 팝업 UI 확인_성인ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto2@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '커튼콜 아래그랑');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '커튼콜 아래그랑');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 전체구매 버튼 클릭
-  await page.evaluate(() => {
-    const bulkPurchaseButton = document.querySelector('button#btn-bulk-purchase');
-    if (bulkPurchaseButton) {
-      bulkPurchaseButton.dispatchEvent(new MouseEvent('click'));
-    }
-  });
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
+  await page.click('button#btn-bulk-purchase');
 
   // 작품 구매 팝업 노출 대기
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -692,22 +844,44 @@ test('에피소드 목록 전체구매 팝업 UI 확인_성인ko', async ({ page
 test('에피소드 목록 전체무료 작품 구매 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
-  // 전체 무료 에피소드 꼴데툰2020 작품 진입
-  await page.goto('https://q-www.lezhin.com/ko/comic/ggtoon2020');
+  // 작품 검색
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '꼴데툰2020');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
+  await page.waitForSelector('.lzComic__item');
+  const link = await page.waitForSelector('.lzComic__link');
+  await link.click();
   await page.waitForTimeout(2000);
 
   // 전체구매 버튼 클릭
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
   await page.click('button#btn-bulk-purchase');
 
-  // 팝업 노출을 확인하는 부분
+  // 팝업 노출을 확인
   await page.waitForSelector('.lzSnackbar__msg');
   const snackbarMessage = await page.$('.lzSnackbar__msg');
   const messageText = await (snackbarMessage ? snackbarMessage.textContent() : null);
@@ -722,22 +896,45 @@ test('에피소드 목록 전체무료 작품 구매 ko', async ({ page }) => {
 test('에피소드 목록 전체무료 작품 구매 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.waitForTimeout(3000);
-      
-  // 전체 무료 에피소드 レジンコミックスガイド 작품 진입
-  await page.goto('https://q-www.lezhin.jp/ja/comic/guidecomic');
+
+  // 작품 검색
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'レジンコミックスガイド');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
+  await page.waitForSelector('.lzComic__item');
+  const link = await page.waitForSelector('.lzComic__link');
+  await link.click();
   await page.waitForTimeout(2000);
 
   // 전체구매 버튼 클릭
   await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
   await page.click('button#btn-bulk-purchase');
 
-  // 팝업 노출을 확인하는 부분
+  // 팝업 노출을 확인
   await page.waitForSelector('.lzSnackbar__msg');
   const snackbarMessage = await page.$('.lzSnackbar__msg');
   const messageText = await (snackbarMessage ? snackbarMessage.textContent() : null);
@@ -752,22 +949,44 @@ test('에피소드 목록 전체무료 작품 구매 ja', async ({ page }) => {
 test('에피소드 목록 전체구매한 작품 구매 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto3@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-      
-  // 기존 전체 구매한 유월의 연애 작품 진입
-  await page.goto('https://q-www.lezhin.com/ko/comic/june_love');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto3@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+
+  // 작품 검색
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '유월의 연애');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
+  await page.waitForSelector('.lzComic__item');
+  const link = await page.waitForSelector('.lzComic__link');
+  await link.click();
   await page.waitForTimeout(2000);
 
   // 전체구매 버튼 클릭
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
   await page.click('button#btn-bulk-purchase');
 
-  // 팝업 노출을 확인하는 부분
+  // 팝업 노출 확인
   await page.waitForSelector('.lzSnackbar__msg');
   const snackbarMessage = await page.$('.lzSnackbar__msg');
   const messageText = await (snackbarMessage ? snackbarMessage.textContent() : null);
@@ -782,21 +1001,44 @@ test('에피소드 목록 전체구매한 작품 구매 ko', async ({ page }) =>
 test('에피소드 목록 전체구매한 작품 구매 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
-  await page.waitForTimeout(3000);    
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
-  // 기존 전체 구매한 カボチャの冒険 작품 진입
-  await page.goto('https://q-www.lezhin.jp/ja/comic/pumpkin');
+  // 작품 검색
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'カボチャの冒険');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
+  await page.waitForSelector('.lzComic__item');
+  const link = await page.waitForSelector('.lzComic__link');
+  await link.click();
   await page.waitForTimeout(2000);
 
   // 전체구매 버튼 클릭
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
   await page.click('button#btn-bulk-purchase');
 
-  // 팝업 노출을 확인하는 부분
+  // 팝업 노출 확인
   await page.waitForSelector('.lzSnackbar__msg');
   const snackbarMessage = await page.$('.lzSnackbar__msg');
   const messageText = await (snackbarMessage ? snackbarMessage.textContent() : null);
@@ -811,18 +1053,41 @@ test('에피소드 목록 전체구매한 작품 구매 ja', async ({ page }) =>
 test('에피소드 목록 전체구매한 작품 구매 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
-  await page.waitForTimeout(3000);    
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
-  // 기존 전체 구매한 1 Plus 1 작품 진입
-  await page.goto('https://q-www.lezhinus.com/en/comic/oneplusone_en');
+  // 작품 검색
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '1 Plus 1');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
+  await page.waitForSelector('.lzComic__item');
+  const link = await page.waitForSelector('.lzComic__link');
+  await link.click();
   await page.waitForTimeout(2000);
 
   // 전체구매 버튼 클릭
+  await page.evaluate(() => window.scrollBy(0, 500));
+  await page.waitForTimeout(2000);
   await page.click('button#btn-bulk-purchase');
 
   // 팝업 노출을 확인하는 부분
@@ -840,21 +1105,35 @@ test('에피소드 목록 전체구매한 작품 구매 en', async ({ page }) =>
 test('소장작품 전체소장 팝업 UI 확인  ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto3@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-      
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
-  await page.waitForLoadState('networkidle');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto3@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   
+  await page.getByRole('button', { name: '계정 메뉴' }).click();
+  await page.getByRole('link', { name: '내 서재' }).click();
+  await page.waitForLoadState('networkidle');
+
   // 소장 작품 탭 선택
-  await page.click('#library-tab-comic');
-  await page.waitForTimeout(2000); // 페이지가 로드될 때까지 대기
+  await page.click('a#library-tab-comic');
+  await page.waitForTimeout(2000);
 
   // 전체소장 버튼 클릭
   await page.click('.library__purchaseAll');
@@ -912,20 +1191,37 @@ test('소장작품 전체소장 팝업 UI 확인  ko', async ({ page }) => {
 test('소장작품 전체소장 팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
   await page.waitForTimeout(3000);    
       
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
+  await page.getByRole('link', { name: 'My本棚' }).click();
+  await page.waitForTimeout(2000); // 페이지가 로드될 때까지 대기
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
   await page.click('#library-tab-comic');
-  await page.waitForTimeout(2000); // 페이지가 로드될 때까지 대기
+  await page.waitForLoadState('networkidle');
 
   // 전체소장 버튼 클릭
   await page.click('.library__purchaseAll');
@@ -980,14 +1276,30 @@ test('소장작품 전체소장 팝업 UI 확인 ja', async ({ page }) => {
 test('소장작품 전체소장 팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  await page.getByRole('button', { name: 'Account Menu' }).click();
+  await page.getByRole('link', { name: 'My Library' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
@@ -1048,16 +1360,30 @@ test('소장작품 전체소장 팝업 UI 확인 en', async ({ page }) => {
 test('소장목록 단권구매 팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto3@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-      
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto3@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  
+  await page.getByRole('button', { name: '계정 메뉴' }).click();
+  await page.getByRole('link', { name: '내 서재' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
@@ -1124,20 +1450,35 @@ test('소장목록 단권구매 팝업 UI 확인 ko', async ({ page }) => {
 test('소장목록 단권구매 팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+
   await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
-  await page.waitForTimeout(3000);    
-      
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  await page.getByRole('link', { name: 'My本棚' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
   await page.click('#library-tab-comic');
-  await page.waitForTimeout(2000); // 페이지가 로드될 때까지 대기
+  await page.waitForLoadState('networkidle');
 
   // 소장 작품인 캐릭터 컴퍼니 작품 선택
   await page.getByRole('link', { name: '香しいオフィスライフ 完結 2%' }).click();
@@ -1186,14 +1527,30 @@ test('소장목록 단권구매 팝업 UI 확인 ja', async ({ page }) => {
 test('소장목록 단권구매 팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  await page.getByRole('button', { name: 'Account Menu' }).click();
+  await page.getByRole('link', { name: 'My Library' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
@@ -1247,16 +1604,30 @@ test('소장목록 단권구매 팝업 UI 확인 en', async ({ page }) => {
 test('소장목록 전체소장 팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto3@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-      
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto3@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+
+  await page.getByRole('button', { name: '계정 메뉴' }).click();
+  await page.getByRole('link', { name: '내 서재' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
@@ -1268,8 +1639,9 @@ test('소장목록 전체소장 팝업 UI 확인 ko', async ({ page }) => {
   await page.waitForTimeout(3000); // 페이지가 로드될 때까지 대기
 
   // 전체소장 버튼 클릭
-  await page.waitForSelector('#btn-bulk-purchase');
-  await page.click('#btn-bulk-purchase');
+  await page.evaluate(() => window.scrollBy(0, 500));
+await page.waitForTimeout(2000);
+await page.click('a[data-ga-event-label="버튼_전체소장"]');
 
   // 작품구매 팝업 UI 확인
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -1324,15 +1696,30 @@ test('소장목록 전체소장 팝업 UI 확인 ko', async ({ page }) => {
 test('소장목록 전체소장 팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
-  await page.waitForTimeout(3000);    
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
+  await page.getByRole('link', { name: 'My本棚' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
@@ -1344,8 +1731,9 @@ test('소장목록 전체소장 팝업 UI 확인 ja', async ({ page }) => {
   await page.waitForTimeout(3000); // 페이지가 로드될 때까지 대기
 
   // 전체소장 버튼 클릭
-  await page.waitForSelector('#btn-bulk-purchase');
-  await page.click('#btn-bulk-purchase');
+  await page.evaluate(() => window.scrollBy(0, 500));
+await page.waitForTimeout(2000);
+await page.click('a[data-ga-event-label="버튼_전체소장"]');
 
   // 작품구매 팝업 UI 확인
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -1397,14 +1785,30 @@ test('소장목록 전체소장 팝업 UI 확인 ja', async ({ page }) => {
 test('소장목록 전체소장 팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
-  await page.click('#log-nav-btn');
-  await page.click('a[data-ga-event-label="메뉴_내 서재"]');
+  await page.getByRole('button', { name: 'Account Menu' }).click();
+  await page.getByRole('link', { name: 'My Library' }).click();
   await page.waitForLoadState('networkidle');
   
   // 소장 작품 탭 선택
@@ -1416,8 +1820,9 @@ test('소장목록 전체소장 팝업 UI 확인 en', async ({ page }) => {
   await page.waitForTimeout(3000); // 페이지가 로드될 때까지 대기
 
   // 전체소장 버튼 클릭
-  await page.waitForSelector('#btn-bulk-purchase');
-  await page.click('#btn-bulk-purchase');
+  await page.evaluate(() => window.scrollBy(0, 500));
+await page.waitForTimeout(2000);
+await page.click('a[data-ga-event-label="버튼_전체소장"]');
 
   // 작품구매 팝업 UI 확인
   const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
@@ -1470,17 +1875,33 @@ test('소장목록 전체소장 팝업 UI 확인 en', async ({ page }) => {
 test('에피소드 뷰어 이전화 구매팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -1541,18 +1962,34 @@ test('에피소드 뷰어 이전화 구매팝업 UI 확인 ko', async ({ page })
 test('에피소드 뷰어 이전화 구매팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '1R。私のベッドに兄2人!?');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '1R。私のベッドに兄2人!?');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
-  await page.waitForLoadState('networkidle'); 
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
@@ -1607,20 +2044,37 @@ test('에피소드 뷰어 이전화 구매팝업 UI 확인 ja', async ({ page })
 test('에피소드 뷰어 이전화 구매팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Doridosim');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Doridosim');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 특정 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 5000));
@@ -1672,17 +2126,33 @@ test('에피소드 뷰어 이전화 구매팝업 UI 확인 en', async ({ page })
 test('에피소드 뷰어 다음화 구매팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -1749,18 +2219,34 @@ test('에피소드 뷰어 다음화 구매팝업 UI 확인 ko', async ({ page })
 test('에피소드 뷰어 다음화 구매팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '1R。私のベッドに兄2人!?');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '1R。私のベッドに兄2人!?');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
-  await page.waitForLoadState('networkidle'); 
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
@@ -1822,20 +2308,37 @@ test('에피소드 뷰어 다음화 구매팝업 UI 확인 ja', async ({ page })
 test('에피소드 뷰어 다음화 구매팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Doridosim');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Doridosim');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 특정 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 5000));
@@ -1895,22 +2398,37 @@ const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
 test('에피소드 뷰어 다음화 구매팝업 UI 확인_성인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto2@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-      
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto2@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '커튼콜 아래그랑');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '커튼콜 아래그랑');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 특정 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 3000));
@@ -1973,17 +2491,32 @@ const purchaseDialog = await page.waitForSelector('.lzModal--purchase');
 test('에피소드 뷰어 스크롤 > 다음화 구매팝업 UI 확인 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
-  // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -2070,18 +2603,34 @@ test('에피소드 뷰어 스크롤 > 다음화 구매팝업 UI 확인 ko', asyn
 test('에피소드 뷰어 스크롤 > 다음화 구매팝업 UI 확인 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '1R。私のベッドに兄2人!?');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '1R。私のベッドに兄2人!?');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
-  await page.waitForLoadState('networkidle'); 
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
@@ -2164,16 +2713,33 @@ test('에피소드 뷰어 스크롤 > 다음화 구매팝업 UI 확인 ja', asyn
 test('에피소드 뷰어 스크롤 > 다음화 구매팝업 UI 확인 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Doridosim');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Doridosim');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -2257,17 +2823,33 @@ test('에피소드 뷰어 스크롤 > 다음화 구매팝업 UI 확인 en', asyn
 test('정주행 이전화 코인부족 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -2311,18 +2893,34 @@ test('정주행 이전화 코인부족 ko', async ({ page }) => {
 test('정주행 이전화 코인부족 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '1R。私のベッドに兄2人!?');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '1R。私のベッドに兄2人!?');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
-  await page.waitForLoadState('networkidle'); 
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
@@ -2365,20 +2963,37 @@ test('정주행 이전화 코인부족 ja', async ({ page }) => {
 test('정주행 이전화 코인부족 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Doridosim');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Doridosim');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 특정 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 5000));
@@ -2418,17 +3033,33 @@ test('정주행 이전화 코인부족 en', async ({ page }) => {
 test('정주행 다음화 코인부족 ko', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.com/ko');
-  await page.getByRole('button', { name: '오늘 하루 안보기' }).click();
-  await page.click('#log-nav-btn');
-  await page.getByRole('link', { name: '이메일로 로그인' }).click();
-  await page.getByLabel('이메일').fill('ch_auto1@yopmail.com');
-  await page.getByLabel('비밀번호').fill('qwer1234!@');
-  await page.getByRole('button', { name: '이메일로 로그인' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
       
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '블로섬 데이즈');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '블로섬 데이즈');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
@@ -2472,18 +3103,34 @@ test('정주행 다음화 코인부족 ko', async ({ page }) => {
 test('정주행 다음화 코인부족 ja', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhin.jp/ja');
-  await page.getByRole('button', { name: 'アカウントメニュー' }).click();
-  await page.getByRole('link', { name: 'メールアドレスでログイン' }).click();
-  await page.getByLabel('メールアドレス').fill('ch_auto1_ja@yopmail.com');
-  await page.getByLabel('パスワード').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'メールアドレスでログイン' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_ja@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', '1R。私のベッドに兄2人!?');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', '1R。私のベッドに兄2人!?');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
-  await page.waitForLoadState('networkidle'); 
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
   await page.waitForTimeout(2000);
@@ -2526,20 +3173,37 @@ test('정주행 다음화 코인부족 ja', async ({ page }) => {
 test('정주행 다음화 코인부족 en', async ({ page }) => {
   // 레진 웹페이지로 이동 및 로그인
   await page.goto('https://q-www.lezhinus.com/en');
-  await page.getByRole('button', { name: 'Account Menu' }).click();
-  await page.getByRole('link', { name: 'Login with email' }).click();
-  await page.getByLabel('Email').fill('ch_auto1_en@yopmail.com');
-  await page.getByLabel('Password').fill('qwer1234!@');
-  await page.getByRole('button', { name: 'Login with email' }).click();
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
+  const element = await page.waitForSelector('button.style_supportsItem__OIhu2.style_supportsItem__userMenu__a0S2I');
+  await element.click();
+  const loginButton = await page.waitForSelector('.style_emailLogin__Mguo_');
+  await loginButton.click();
+  await page.fill('input[type="email"]', 'ch_auto1_en@yopmail.com');
+  await page.fill('input[type="password"]', 'qwer1234!@');
+  await page.click('button[type="submit"]');
+  try {
+    const element = await page.waitForSelector('.style_lzBtn__tyLuS', { timeout: 1000 });
+    await element.click();
+    console.log('오늘 하루 안보기 버튼 클릭 성공');
+  } catch (error) {
+    console.log('오늘 하루 안보기 버튼이 없습니다. 계속 진행합니다.');
+  }
 
   // 작품 검색
-  await page.click('#search-btn');
-  await page.type('.search__input', 'Doridosim');
-  await page.click('.search__btnGo');
+  await page.click('.style_supportsItem__search__ZPNGK');
+  await page.type('.style_gnbSearch__input__KGtkv', 'Doridosim');
+  await page.waitForTimeout(1000);
+  await page.click('.style_gnbSearch__inputGotoDetail__VeIbG');
   await page.waitForSelector('.lzComic__item');
   const link = await page.waitForSelector('.lzComic__link');
   await link.click();
-  await page.waitForLoadState('networkidle'); 
+  await page.waitForTimeout(2000);
       
   // 특정 에피소드 선택
   await page.evaluate(() => window.scrollBy(0, 5000));
